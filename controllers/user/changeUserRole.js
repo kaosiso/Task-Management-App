@@ -1,17 +1,19 @@
+// controllers/user/changeUserRole.controller.js
 import User from "../../models/user.model.js";
 
 const changeUserRole = async (req, res) => {
   try {
-    const { userId, role } = req.body;
+    const { role } = req.body; // only role comes from body
+    const { id } = req.params; // user id comes from route
 
     if (!["user", "admin"].includes(role)) {
       return res.status(400).json({ success: false, message: "Invalid role" });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      userId,
+      id,
       { role },
-      { new: true }
+      { new: true, runValidators: true }
     ).select("-password");
 
     if (!updatedUser) {
