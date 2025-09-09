@@ -3,7 +3,7 @@ import User from "../models/user.model.js"; // <-- import User model
 
 export const isAuthenticated = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("🔍 Incoming auth server header:", authHeader);
+  console.log("Incoming auth server header:", authHeader);
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Unauthorized" });
   }

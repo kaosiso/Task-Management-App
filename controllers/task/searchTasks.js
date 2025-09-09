@@ -26,8 +26,10 @@ export const searchTasks = async (req, res) => {
       query.priority = priority;
     }
 
-    // Only tasks of logged-in user
-    query.owner = req.user.id;
+    // 🔑 Restrict to current user unless admin
+    if (req.user.role !== "admin") {
+      query.owner = req.user.id;
+    }
 
     const tasks = await Task.find(query).sort({ createdAt: -1 });
 

@@ -12,9 +12,10 @@ const taskSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    completed: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      enum: ["todo", "in-progress", "done"],
+      default: "todo",
     },
     dueDate: {
       type: Date,
@@ -33,6 +34,7 @@ const taskSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 
 const Task = mongoose.model("Task", taskSchema);
 
